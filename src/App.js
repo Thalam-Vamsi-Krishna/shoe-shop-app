@@ -1,25 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import AddShoe from "./components/Shoes/AddShoe";
+import ShoeList from "./components/Shoes/ShoeList";
+import Header from "./components/Layout/Header";
+import CartProvider from "./components/Store/CartProvider";
 
-function App() {
+const App = () => {
+  const [shoes, setShoes] = useState([]);
+  const addtShoeHandler = (shoe) => {
+    setShoes((prevShoes) => [...prevShoes, shoe]);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <CartProvider>
+      <Header />
+      <AddShoe onAddShoe={addtShoeHandler} />
+      <ShoeList shoes={shoes} />
+    </CartProvider>
   );
-}
+};
 
 export default App;
