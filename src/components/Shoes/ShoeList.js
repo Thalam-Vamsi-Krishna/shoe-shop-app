@@ -6,14 +6,32 @@ const ShoeList = (props) => {
   const { shoes } = props;
   const cartCtx = useContext(CartContext);
   const handleBuy = (shoe, size) => {
-    if (size === "S") {
-      shoe.s_quantity -= 1;
-    } else if (size === "M") {
-      shoe.m_quantity -= 1;
-    } else if (size === "L") {
-      shoe.l_quantity -= 1;
+    let quantity = 0;
+    switch (size) {
+      case "S":
+        if (shoe.s_quantity > 0) {
+          shoe.s_quantity -= 1;
+          quantity = 1;
+        }
+        break;
+      case "M":
+        if (shoe.m_quantity > 0) {
+          shoe.m_quantity -= 1;
+          quantity = 1;
+        }
+        break;
+      case "L":
+        if (shoe.l_quantity > 0) {
+          shoe.l_quantity -= 1;
+          quantity = 1;
+        }
+        break;
+      default:
+        break;
     }
-    cartCtx.addItem(shoe, 1, size);
+    if (quantity > 0) {
+      cartCtx.addItem(shoe, quantity, size);
+    }
   };
   return (
     <Container className="mx-auto my-4">
